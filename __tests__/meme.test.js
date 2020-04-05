@@ -41,4 +41,14 @@ describe('it tests meme routes', () => {
         expect(res.body).toEqual(meme);
       });
   });
+  it('updates a meme by id', async() => {
+    const meme = await getMeme();
+    return request(app)
+      .put(`/api/v1/memes/${meme._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          ...meme
+        });
+      });
+  });
 });

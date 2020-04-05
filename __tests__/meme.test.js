@@ -33,4 +33,12 @@ describe('it tests meme routes', () => {
         });
       });
   });
+  it('gets all memes', async() => {
+    const meme = await getMemes();
+    return request(app)
+      .get('/api/v1/memes')
+      .then(res => {
+        expect(res.body).toEqual(meme);
+      });
+  });
 });

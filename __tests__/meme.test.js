@@ -3,7 +3,7 @@ const { getMeme, getMemes } = require('../db/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('memes routes', () => {
+describe('it tests meme routes', () => {
   it('creates a meme', () => {
     return request(app)
 
@@ -20,6 +20,16 @@ describe('memes routes', () => {
           image: 'https://source.unsplash.com/random',
           bottom: 'from dust to stars',
           __v: 0
+        });
+      });
+  });
+  it('gets a meme by its id', async() => {
+    const meme = await getMeme();
+    return request(app)
+      .get(`/api/v1/memes/${meme._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          ...meme,
         });
       });
   });
